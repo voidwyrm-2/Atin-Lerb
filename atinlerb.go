@@ -77,23 +77,8 @@ func ToAtinLerb(word string, capitalize bool) string {
 	return out + "-" + erb
 }
 
-func main() {
-	// Create new parser object
-	parser := argparse.NewParser("Erb-ferb Atin-lerb Translator", "translates the given text to Ferb Latin")
-	// Create string flag
-	gottentext := parser.String("t", "text", &argparse.Options{Required: true, Help: "Text to translate into Ferb Latin"})
-	// Parse input
-	err := parser.Parse(os.Args)
-	if err != nil {
-		// In case of error print error and print usage
-		// This can also be done by passing -h or --help flags
-		fmt.Print(parser.Usage(err))
-	}
-
-	temp := *gottentext
-	//fmt.Println(temp[1:])
-	//fmt.Println(ToAtinLerb(temp, false))
-	words := strings.Split(temp, " ")
+func WordsToAtinLerb(input string) string {
+	words := strings.Split(input, " ")
 	var parsedWords []Word
 
 	var out []string
@@ -137,5 +122,37 @@ func main() {
 		out = append(out, o)
 	}
 
-	fmt.Println(strings.Join(out, " "))
+	return strings.Join(out, " ")
+}
+
+func main() {
+	// Create new parser object
+	parser := argparse.NewParser("Erb-ferb Atin-lerb Translator", "translates the given text to Ferb Latin")
+	// Create string flag
+	gottentext := parser.String("t", "text", &argparse.Options{Required: true, Help: "Text to translate into Ferb Latin"})
+	// Parse input
+	err := parser.Parse(os.Args)
+	if err != nil {
+		// In case of error print error and print usage
+		// This can also be done by passing -h or --help flags
+		fmt.Print(parser.Usage(err))
+	}
+
+	/*
+		a := &gottentext
+
+		b := &a
+
+		c := &b
+
+		d := &c
+
+		e := &d
+
+		f := &e
+
+		fmt.Println(*******f)
+	*/
+
+	fmt.Println(WordsToAtinLerb(*gottentext))
 }
